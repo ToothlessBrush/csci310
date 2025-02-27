@@ -4,7 +4,7 @@
 import os # Provides functions for filesystem interaction
 import glob # Helps find files
 
-def merge_files_by_category(base_dir): # Merge files by category to get an ouput of {category}.txt
+def merge_files_by_category(base_dir): # Merge files by category to get an output of {category}.txt
     categories = ["backward", "forward", "land", "left", "right", "takeoff"] # Define categories
     
     for category in categories: # Process each category
@@ -24,16 +24,30 @@ def merge_files_by_category(base_dir): # Merge files by category to get an ouput
             for subdir in sorted(subdirs):  # Sort for chronological order
                 subdir_path = os.path.join(category_path, subdir) # Construct full path for the subdirectory
                 
-                # Get all .txt files in the subdirectory
-                txt_files = sorted(glob.glob(os.path.join(subdir_path, "*.txt"))) # glob.glob() finds all txt files
+                # Get all .txt, .cw, and .csw files in the subdirectory; sort further
+                data_files = sorted(glob.glob(os.path.join(subdir_path, "*.txt")) +
+                                   glob.glob(os.path.join(subdir_path, "*.cw")) +
+                                   glob.glob(os.path.join(subdir_path, "*.csw"))) # Collects all relevant files
                 
-                for txt_file in txt_files: # Iteration
-                    print(f"Merging: {txt_file} into {output_file}") # Display merging message to show progress
+                for data_file in data_files: # Iteration
+                    print(f"Merging: {data_file} into {output_file}") # Display merging message to show progress
                     
                     # Open and read ("r") each file, then append it to the output file
-                    with open(txt_file, "r", encoding="utf-8") as infile:
+                    with open(data_file, "r", encoding="utf-8") as infile: # Encode in utf-8 (likely not needed)
                         outfile.write(infile.read()) # Write to corresponding output file
                         outfile.write("\n")  # Newline between merged files
+    
+                # Remove processed data files after merging
+                for data_file in data_files:
+                    os.remove(data_file) # Remove the file
+                
+                # Remove subdirectory if it is empty after file deletion
+                if not os.listdir(subdir_path):
+                    os.rmdir(subdir_path) # Remove the directory
+        
+        # Remove the category directory if it is empty after all subdirectories are processed
+        if not os.listdir(category_path):
+            os.rmdir(category_path) # Remove the empty category directory
     
     print("Merging completed for all categories!") # Final print message to show program termination
 
