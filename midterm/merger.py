@@ -18,7 +18,7 @@ def merge_files_by_category(base_dir): # Merge files by category to get an outpu
         
         with open(output_file, "a", encoding="utf-8") as outfile: # Open the output file in append mode ("a")
                                                                   # Append mode prevents overwriting existing data
-            # Find all subdirectories in the category folder
+            # Get a list of all subdirectories inside the category folder
             subdirs = [d for d in os.listdir(category_path) if os.path.isdir(os.path.join(category_path, d))]
             
             for subdir in sorted(subdirs):  # Sort for chronological order
@@ -26,8 +26,8 @@ def merge_files_by_category(base_dir): # Merge files by category to get an outpu
                 
                 # Get all .txt, .cw, and .csw files in the subdirectory; sort further
                 data_files = sorted(glob.glob(os.path.join(subdir_path, "*.txt")) +
-                                   glob.glob(os.path.join(subdir_path, "*.cw")) +
-                                   glob.glob(os.path.join(subdir_path, "*.csw"))) # Collects all relevant files
+                                   glob.glob(os.path.join(subdir_path, "*.cw")) + # Unique cases since there is only
+                                   glob.glob(os.path.join(subdir_path, "*.csw"))) # one .cw file and one .csw file
                 
                 for data_file in data_files: # Iteration
                     print(f"Merging: {data_file} into {output_file}") # Display merging message to show progress
