@@ -14,7 +14,7 @@ def merge_files_by_category(base_dir): # Merge files by category to get an outpu
             continue
         
         print(f"Processing category: {category}") # Display processing message for readability
-        output_file = os.path.join(base_dir, f"{category}.txt") # Builds the corresponding path
+        output_file = os.path.join(category_path, f"{category}.txt") # Builds the corresponding path inside each category directory
         
         with open(output_file, "a", encoding="utf-8") as outfile: # Open the output file in append mode ("a")
                                                                   # Append mode prevents overwriting existing data
@@ -44,10 +44,6 @@ def merge_files_by_category(base_dir): # Merge files by category to get an outpu
                 # Remove subdirectory if it is empty after file deletion
                 if not os.listdir(subdir_path):
                     os.rmdir(subdir_path) # Remove the directory
-        
-        # Remove the category directory if it is empty after all subdirectories are processed
-        if not os.listdir(category_path):
-            os.rmdir(category_path) # Remove the empty category directory
     
     print("Merging completed for all categories!") # Final print message to show program termination
 
