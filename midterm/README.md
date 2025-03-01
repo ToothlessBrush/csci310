@@ -22,12 +22,12 @@ Output:
 
 After running, you will have:
 
-/data/backward/backward.txt
-/data/forward/forward.txt
-/data/land/land.txt
-/data/left/left.txt
-/data/right/right.txt
-/data/takeoff/takeoff.txt
+- /data/backward/backward.txt
+- /data/forward/forward.txt
+- /data/land/land.txt
+- /data/left/left.txt
+- /data/right/right.txt
+- /data/takeoff/takeoff.txt
 
 ---
 
