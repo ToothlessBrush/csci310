@@ -11,7 +11,7 @@ Usage:
 
 Run the program using (inside the /midterm/ directory):
 
-python merger.py
+`python merger.py`
 
 This will process the files and clean up unnecessary subdirectories.
 
